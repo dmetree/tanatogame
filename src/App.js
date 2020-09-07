@@ -105,13 +105,14 @@ function App() {
       
       <div className="game">
         <div className="gameCenter">
+          <h3 className='Line_1 lifeStage'>Infancy</h3>
+          <h3 className='Line_2 lifeStage'>Childhood</h3>
+          <h3 className='Line_3 lifeStage'>Adulthood</h3>
+          <h3 className='Line_4 lifeStage'>Old age</h3>
           {guidance}
           {actionBtn}
           <div className="controls">
             <h3>Your dice is {dice}</h3>
-            {/* <h2>
-              You're on step {step}
-            </h2> */}
           </div>
         </div>
         <div className="player"></div>
@@ -121,3 +122,25 @@ function App() {
 }
 
 export default App;
+
+// Music
+// Entrance - limits of control theme
+
+// End of life // sudden death  - deadman theme
+// A friend                     - gungrave joy
+// Enemy                        - gungrave - overtone?
+// Death of a close person      - famouse blue raincoat 
+// Love                         - Maria Blondy? Kiss me?
+// Teacher                      - 
+// Spiritual master             - Sacral nirvana
+// Spiritual enlightment        - browser crash?
+// You love your job            - 
+
+
+
+// Images
+// game bg - planet?
+// image of the game player - ?
+
+
+

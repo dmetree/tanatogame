@@ -1,34 +1,11 @@
 .App {
+  height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
+  background-color: #282c34;
 }
 
 .game {
@@ -38,30 +15,33 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  border: 1px solid brown;
+  background-color: azure;
+  border: 1px solid white;
   border-radius: 50px;
 }
 
 .gameCenter {
   width: 420px;
   height: 420px;
-  background-color: goldenrod;
+  background-color: deepskyblue;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 50px;
+  position: relative;
 }
 
 .player {
   width: 50px;
   height: 50px;
-  background-color: indigo;
+  background-color: rosybrown;
   border-radius: 50px;
   margin: 25px;
   position: absolute;
   top: 500px;
   left: 0;
+  box-shadow: 1px 3px 3px slategrey;
 }
 
 .gameBtn {
@@ -78,8 +58,25 @@
   color: white;
 }
 
-.params {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.lifeStage {
+  position: absolute;
+  color: white;
+}
+
+.Line_1 {
+  left: 0;
+  transform: rotate(-90deg)
+}
+
+.Line_2 {
+  top: 0
+}
+
+.Line_3 {
+  right: 0;
+  transform: rotate(90deg)
+}
+
+.Line_4 {
+  bottom: 0;
 }
