@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .App-logo {
@@ -28,11 +31,55 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.game {
+  width: 600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid brown;
+  border-radius: 50px;
+}
+
+.gameCenter {
+  width: 420px;
+  height: 420px;
+  background-color: goldenrod;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+}
+
+.player {
+  width: 50px;
+  height: 50px;
+  background-color: indigo;
+  border-radius: 50px;
+  margin: 25px;
+  position: absolute;
+  top: 500px;
+  left: 0;
+}
+
+.gameBtn {
+  padding: 10px 15px;
+  background-color: lightgray;
+  color: black;
+  border: 0;
+  border-radius: 5px;
+  transform: skewX(-15deg)
+}
+
+.gameBtn:hover {
+  background-color: gray;
+  color: white;
+}
+
+.params {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

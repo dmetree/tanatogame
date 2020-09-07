@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import Game from './components/Game'
 import './App.css';
+import { gsap } from 'gsap'
 
 function App() {
 
@@ -54,6 +55,10 @@ function App() {
     }
   }, [dice])
 
+  useEffect(() => {
+    gsap.to(".player", { duration: 1, x: xc, y: yc });
+  }, [xc, yc])
+
   let newGame = () => {
     setGame(true);
     setStep(0);
@@ -97,15 +102,20 @@ function App() {
 
   return (
     <div className="App">
-      <h3>Your dice is {dice}</h3>
       
-      {guidance}
-      <h2>
-        You're on step {step}, line {line}
-      </h2>
-      <h4>Y = {yc}</h4>
-      <h4>X = {xc}</h4>
-      {actionBtn}
+      <div className="game">
+        <div className="gameCenter">
+          {guidance}
+          {actionBtn}
+          <div className="controls">
+            <h3>Your dice is {dice}</h3>
+            {/* <h2>
+              You're on step {step}
+            </h2> */}
+          </div>
+        </div>
+        <div className="player"></div>
+      </div>
     </div>
   );
 }
