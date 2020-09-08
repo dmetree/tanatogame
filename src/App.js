@@ -41,6 +41,7 @@ function App() {
       setX(0)
       setGame(false)
     }
+
   }, [step])
   
   useEffect(() => {
@@ -56,8 +57,14 @@ function App() {
   }, [dice])
 
   useEffect(() => {
-    gsap.to(".player", { duration: 1, x: xc, y: yc });
-  }, [xc, yc])
+    let tl = gsap.timeline()
+    tl.to(".player", { duration: 1, x: xc, y: yc })
+      .to(".heart", { duration: 1, rotation: step*18 })
+      .to(".core", { duration: 1, rotation: step * -36 }, '-=1')
+  }, [xc, yc, step])
+
+
+  
 
   let newGame = () => {
     setGame(true);
@@ -67,53 +74,60 @@ function App() {
   }
 
   let actionBtn = (
-    <button className="gameBtn" onClick={castDice}>Life Spin</button>
+    <div onClick={castDice} className="heart">
+      <div className="core"></div>
+    </div>
   )
   if (!game){
     actionBtn = (
-      <button className="gameBtn" onClick={newGame}>Another life?</button>
+      <div onClick={newGame} className="heart">
+        <div className="core"></div>
+      </div>
     )
   }
 
 
   let guidance = (
-    <p>You'll see what to do</p>
+    <h1>Click center to spin</h1>
   )
   if (step === 5){
     guidance = (
-      <p>Your infancy is over. Meditate</p>
+      <h1>Your infancy is over. Meditate</h1>
     )
   }
   if (step === 10){
     guidance = (
-      <p>Your childhood is over. Meditate</p>
+      <h1>Your childhood is over. Meditate</h1>
     )
   }
   if (step === 15){
     guidance = (
-      <p>Your adulthood is over. Meditate</p>
+      <h1>Your adulthood is over. Meditate</h1>
     )
   }
   if (step === 20) {
     guidance = (
-      <p>Your old age is over. Meditate</p>
+      <h1>Your old age is over. Meditate</h1>
     )
   }
 
   return (
     <div className="App">
-      
+      {guidance}
       <div className="game">
         <div className="gameCenter">
+          
+          
+
           <h3 className='Line_1 lifeStage'>Infancy</h3>
           <h3 className='Line_2 lifeStage'>Childhood</h3>
           <h3 className='Line_3 lifeStage'>Adulthood</h3>
           <h3 className='Line_4 lifeStage'>Old age</h3>
-          {guidance}
+         
           {actionBtn}
-          <div className="controls">
+          {/* <div className="controls">
             <h3>Your dice is {dice}</h3>
-          </div>
+          </div> */}
         </div>
         <div className="player"></div>
       </div>
