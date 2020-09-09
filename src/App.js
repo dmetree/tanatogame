@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import Game from './components/Game'
+import Medal from './media/medal.svg'
+// import Medal from './media/gameCenter.svg'
 import './App.css';
 import { gsap } from 'gsap'
 
@@ -11,6 +13,7 @@ function App() {
   const [line, setLine] = useState(1);
   const [xc, setX] = useState(0);
   const [yc, setY] = useState(0);
+  const [guidance, setGuidance] = useState('');
 
 
   let castDice = () => {
@@ -42,6 +45,7 @@ function App() {
       setGame(false)
     }
 
+
   }, [step])
   
   useEffect(() => {
@@ -58,9 +62,26 @@ function App() {
 
   useEffect(() => {
     let tl = gsap.timeline()
-    tl.to(".player", { duration: 1, x: xc, y: yc })
-      .to(".heart", { duration: 1, rotation: step*18 })
-      .to(".core", { duration: 1, rotation: step * -36 }, '-=1')
+    tl.to(".heart", { duration: 1, rotation: step*18 })
+      .to("#Medal", { duration: 1, rotation: step * -72 }, '-=1')
+      .to(".player", { duration: 1, x: xc, y: yc })
+
+
+    if (step === 0) {
+      setGuidance('Click center to spin')
+    }
+    if (step === 5) {
+      setGuidance('Your infancy is over. Meditate')
+    }
+    if (step === 10) {
+      setGuidance('Your childhood is over. Meditate')
+    }
+    if (step === 15) {
+      setGuidance('Your adulthood is over. Meditate')
+    }
+    if (step === 20) {
+      setGuidance('Your old age is over. Meditate')
+    }
   }, [xc, yc, step])
 
 
@@ -75,49 +96,23 @@ function App() {
 
   let actionBtn = (
     <div onClick={castDice} className="heart">
-      <div className="core"></div>
+      <img src={Medal} alt="Medal" id="Medal" />
     </div>
   )
   if (!game){
     actionBtn = (
       <div onClick={newGame} className="heart">
-        <div className="core"></div>
+        <img src={Medal} alt="Medal" id="Medal" />
       </div>
     )
   }
 
 
-  let guidance = (
-    <h1>Click center to spin</h1>
-  )
-  if (step === 5){
-    guidance = (
-      <h1>Your infancy is over. Meditate</h1>
-    )
-  }
-  if (step === 10){
-    guidance = (
-      <h1>Your childhood is over. Meditate</h1>
-    )
-  }
-  if (step === 15){
-    guidance = (
-      <h1>Your adulthood is over. Meditate</h1>
-    )
-  }
-  if (step === 20) {
-    guidance = (
-      <h1>Your old age is over. Meditate</h1>
-    )
-  }
-
   return (
     <div className="App">
-      {guidance}
+      <h1>{guidance}</h1>
       <div className="game">
         <div className="gameCenter">
-          
-          
 
           <h3 className='Line_1 lifeStage'>Infancy</h3>
           <h3 className='Line_2 lifeStage'>Childhood</h3>
