@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import Game from './components/Game'
 import Medal from './media/medal.svg'
-// import Medal from './media/gameCenter.svg'
 import './App.css';
 import { gsap } from 'gsap'
+import SplitText from './gsap/SplitText'
+
 
 function App() {
 
@@ -13,7 +13,7 @@ function App() {
   const [line, setLine] = useState(1);
   const [xc, setX] = useState(0);
   const [yc, setY] = useState(0);
-  const [guidance, setGuidance] = useState('');
+  const [guidance, setGuidance] = useState('Click center for a spin');
 
 
   let castDice = () => {
@@ -30,7 +30,7 @@ function App() {
       setStep(5);
       setLine(2);
       setY(-500)
-    } else if (( step > 10 || step === 10) && line === 2) {
+    } else if ((step > 10 || step === 10) && line === 2) {
       setStep(10);
       setLine(3);
       setX(500)
@@ -47,45 +47,58 @@ function App() {
 
 
   }, [step])
-  
+
   useEffect(() => {
-    if (step < 5){
+    if (step < 5) {
       setY(yc - dice * 100);
-    } else if (step < 10){
+    } else if (step < 10) {
       setX(xc + dice * 100)
-    } else if (step < 15){
-      setY(yc + dice *100)
-    } else if (step <20){
+    } else if (step < 15) {
+      setY(yc + dice * 100)
+    } else if (step < 20) {
       setX(xc - dice * 100)
     }
+
   }, [dice])
+
 
   useEffect(() => {
     let tl = gsap.timeline()
-    tl.to(".heart", { duration: 1, rotation: step*18 })
+    tl.to(".heart", { duration: 1, rotation: step * 18 })
       .to("#Medal", { duration: 1, rotation: step * -72 }, '-=1')
       .to(".player", { duration: 1, x: xc, y: yc })
 
+    setTimeout(() => {
+      if (step === 0) {
+        setGuidance('Click center for a spin')
+      }
+      if (step === 5) {
+        setGuidance('Your infancy is over. Meditate');
+        setTimeout(() => { setGuidance('It`s time for a spin') }, 5000);
+      }
+      if (step === 10) {
+        setGuidance('Your childhood is over. Meditate')
+        setTimeout(() => { setGuidance('It`s time for a spin') }, 5000);
+      }
+      if (step === 15) {
+        setGuidance('Your adulthood is over. Meditate')
+        setTimeout(() => { setGuidance('It`s time for a spin') }, 5000);
+      }
+      if (step === 20) {
+        setGuidance('Your old age is over. Meditate');
+        setTimeout(() => { setGuidance('Start a new Life? Click center') }, 5000);
+      }
+    }, 2000);
 
-    if (step === 0) {
-      setGuidance('Click center to spin')
-    }
-    if (step === 5) {
-      setGuidance('Your infancy is over. Meditate')
-    }
-    if (step === 10) {
-      setGuidance('Your childhood is over. Meditate')
-    }
-    if (step === 15) {
-      setGuidance('Your adulthood is over. Meditate')
-    }
-    if (step === 20) {
-      setGuidance('Your old age is over. Meditate')
-    }
   }, [xc, yc, step])
 
-
-  
+  useEffect(() => {
+    let animateText = new gsap.timeline(),
+      mySplitText = new SplitText(".guidance", { type: "words,chars" }),
+      chars = mySplitText.chars;
+    gsap.set(".guidance", { perspective: 400 });
+    animateText.staggerFrom(chars, 1, { delay: 1, duration: 0.6, scale: 4, opacity: 0, rotationX: -180, transformOrigin: "100% 50%", ease: "back.out", stagger: 0.02 });
+  }, [guidance])
 
   let newGame = () => {
     setGame(true);
@@ -99,7 +112,7 @@ function App() {
       <img src={Medal} alt="Medal" id="Medal" />
     </div>
   )
-  if (!game){
+  if (!game) {
     actionBtn = (
       <div onClick={newGame} className="heart">
         <img src={Medal} alt="Medal" id="Medal" />
@@ -110,7 +123,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>{guidance}</h1>
+      <h1 className="guidance">{guidance}</h1>
       <div className="game">
         <div className="gameCenter">
 
@@ -118,11 +131,8 @@ function App() {
           <h3 className='Line_2 lifeStage'>Childhood</h3>
           <h3 className='Line_3 lifeStage'>Adulthood</h3>
           <h3 className='Line_4 lifeStage'>Old age</h3>
-         
           {actionBtn}
-          {/* <div className="controls">
-            <h3>Your dice is {dice}</h3>
-          </div> */}
+
         </div>
         <div className="player"></div>
       </div>
